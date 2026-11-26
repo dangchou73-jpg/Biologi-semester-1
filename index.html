@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biology Learning Hub</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#080f1e;
+  --card:#111d32;
+  --primary:#35d6ad;
+  --text:#f1f5f9;
+  --muted:#9aabc0;
+}
+
+* {box-sizing:border-box;margin:0;padding:0}
+
+body {
+  font-family:Poppins,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header {
+  padding:25px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #253249;
+}
+
+.logo {font-size:21px;font-weight:800}
+.logo span {color:var(--primary)}
+
+nav a {
+  color:#cbd5e1;
+  text-decoration:none;
+  margin-left:20px;
+  font-size:13px;
+}
+
+.hero {
+  padding:65px 7% 45px;
+  background:linear-gradient(120deg,#102c39,#101a36,#15264a);
+}
+
+.hero h1 {
+  font-size:clamp(30px,5vw,48px);
+  line-height:1.3;
+  margin:15px 0;
+}
+
+.hero h1 span {color:var(--primary)}
+
+.hero p {
+  color:#b6c6d8;
+  max-width:600px;
+  font-size:14px;
+}
+
+.tag {
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+.stats {
+  display:flex;
+  gap:35px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.stats h2 {color:var(--primary);font-size:25px}
+.stats small {color:var(--muted)}
+
+.container {padding:35px 7%}
+
+.search {
+  width:100%;
+  padding:15px 20px;
+  border:1px solid #293b53;
+  border-radius:12px;
+  background:var(--card);
+  color:white;
+  outline:none;
+  font-family:inherit;
+  margin-bottom:25px;
+}
+
+.search:focus {border-color:var(--primary)}
+
+.filters {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+.filters button {
+  padding:9px 17px;
+  border-radius:30px;
+  border:1px solid #30425a;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.filters button.active {
+  background:var(--primary);
+  color:#071a19;
+  border-color:var(--primary);
+}
+
+.section-title {
+  font-size:22px;
+  margin:30px 0 20px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:17px;
+}
+
+.card {
+  background:var(--card);
+  border:1px solid #25344b;
+  padding:20px;
+  border-radius:15px;
+  transition:.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  border-color:var(--primary);
+}
+
+.number {
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+}
+
+.card h3 {font-size:15px;margin:12px 0}
+.card p {font-size:12px;color:var(--muted);line-height:1.8}
+
+.card button {
+  margin-top:18px;
+  padding:10px 15px;
+  border:0;
+  border-radius:8px;
+  background:var(--primary);
+  color:#071a19;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:10;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+
+.modal-content {
+  background:#132139;
+  border:1px solid #34465f;
+  padding:28px;
+  border-radius:18px;
+  max-width:650px;
+  width:100%;
+  max-height:85vh;
+  overflow:auto;
+}
+
+.modal-content h2 {color:var(--primary);margin-bottom:15px}
+.modal-content p {line-height:1.9;color:#d0dbea;font-size:14px;white-space:pre-line}
+.modal-content button {
+  background:var(--primary);
+  border:0;
+  padding:10px 20px;
+  margin-top:20px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.quiz {
+  margin-top:55px;
+  padding:30px;
+  background:linear-gradient(120deg,#142c3c,#172448);
+  border-radius:18px;
+}
+
+.quiz p {margin:15px 0}
+
+.quiz button {
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:13px;
+  margin:9px 0;
+  border-radius:9px;
+  background:#24344c;
+  color:white;
+  border:1px solid #354b66;
+  cursor:pointer;
+}
+
+.quiz button:hover {border-color:var(--primary)}
+
+footer {
+  text-align:center;
+  padding:35px;
+  color:#8193aa;
+  font-size:12px;
+  border-top:1px solid #253249;
+}
+
+@media(max-width:600px) {
+  header {padding:20px 5%}
+  nav {display:none}
+  .hero,.container {padding-left:5%;padding-right:5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">BIOLOGY<span> HUB.</span></div>
+  <nav>
+    <a href="#home">Beranda</a>
+    <a href="#materi">Materi</a>
+    <a href="#quiz">Kuis</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="tag">BIOLOGY LEARNING PLATFORM</div>
+  <h1>Belajar Biologi Jadi<br><span>Lebih Mudah.</span></h1>
+  <p>
+    Platform belajar Biologi kelas XI berdasarkan
+    30 kisi-kisi ujian. Pelajari materi, pahami konsep,
+    dan uji kemampuanmu di sini.
+  </p>
+
+  <div class="stats">
+    <div><h2>30</h2><small>Materi belajar</small></div>
+    <div><h2>4</h2><small>Bab utama</small></div>
+    <div><h2>1</h2><small>Platform belajar</small></div>
+  </div>
+</section>
+
+<main class="container" id="materi">
+
+  <h2 class="section-title">Jelajahi Materi</h2>
+
+  <input class="search" id="search"
+  placeholder="Cari materi Biologi...">
+
+  <div class="filters">
+    <button class="active" onclick="filter('Semua',this)">Semua</button>
+    <button onclick="filter('Gerak',this)">Sistem Gerak</button>
+    <button onclick="filter('Darah',this)">Sistem Peredaran Darah</button>
+    <button onclick="filter('Cerna',this)">Sistem Pencernaan</button>
+    <button onclick="filter('Napas',this)">Sistem Pernapasan</button>
+  </div>
+
+  <div class="grid" id="materiGrid"></div>
+
+  <section class="quiz" id="quiz">
+    <div class="tag">TEST YOUR KNOWLEDGE</div>
+    <h2>Latihan Soal Biologi</h2>
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="result"></p>
+    <button onclick="nextQuestion()" style="padding:12px 20px;background:#35d6ad;border:0;border-radius:8px;cursor:pointer">
+      Soal Berikutnya →
+    </button>
+  </section>
+
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+    <button onclick="closeModal()">Tutup Materi</button>
+  </div>
+</div>
+
+<footer>
+  BIOLOGY LEARNING HUB © 2026<br>
+  Media Pembelajaran Biologi Kelas XI
+</footer>
+
+<script>
+
+const data = [
+
+["Gerak","Jenis-Jenis Sendi",
+"Sendi adalah hubungan antara dua tulang atau lebih.\n\n1. Sendi engsel: bergerak satu arah, contoh siku dan lutut.\n2. Sendi peluru: bergerak ke segala arah, contoh bahu dan panggul.\n3. Sendi putar: memungkinkan gerakan memutar, contoh atlas dan aksis.\n4. Sendi pelana: bergerak dua arah, contoh pangkal ibu jari.\n5. Sendi geser: memungkinkan pergeseran terbatas, contoh antartulang pergelangan."],
+
+["Gerak","Struktur Tulang Pipa",
+"Tulang pipa memiliki beberapa bagian:\n\n1. Epifisis: ujung tulang, banyak mengandung tulang spons.\n2. Diafisis: bagian batang tulang.\n3. Metafisis: daerah antara epifisis dan diafisis.\n4. Periosteum: selaput pembungkus tulang.\n5. Tulang kompak: memberikan kekuatan.\n6. Tulang spons: memiliki rongga-rongga.\n7. Sumsum tulang: berperan dalam pembentukan sel darah (sumsum merah).\n8. Rongga medula: tempat sumsum tulang."],
+
+["Gerak","Otot Antagonis",
+"Otot antagonis adalah pasangan otot yang bekerja berlawanan.\n\nContoh pada lengan:\n\n- Fleksi: otot bisep berkontraksi dan trisep relaksasi sehingga siku menekuk.\n- Ekstensi: otot trisep berkontraksi dan bisep relaksasi sehingga siku melurus.\n\nKebalikan kerja otot tersebut memungkinkan anggota tubuh bergerak."],
+
+["Gerak","Kelainan Tulang Belakang",
+"Terdapat tiga kelainan utama:\n\n1. Lordosis: tulang belakang melengkung berlebihan ke depan pada bagian pinggang.\n2. Kifosis: punggung melengkung berlebihan ke belakang.\n3. Skoliosis: tulang belakang melengkung ke samping.\n\nKebiasaan postur yang kurang baik dapat berkontribusi terhadap gangguan postur, tetapi bukan satu-satunya penyebab."],
+
+["Gerak","Gangguan Sistem Gerak",
+"Beberapa gangguan sistem gerak:\n\n1. Osteoporosis: penurunan kepadatan tulang.\n2. Arthritis: peradangan sendi.\n3. Fraktur: patah tulang.\n4. Rakitis: gangguan mineralisasi tulang pada anak.\n5. Tendinitis: peradangan tendon.\n6. Dislokasi: bergesernya tulang dari posisi normal pada sendi.\n\nDiagnosis membutuhkan pemeriksaan tenaga medis."],
+
+["Gerak","Aktivitas Fisik dan Kepadatan Tulang",
+"Aktivitas fisik, nutrisi, dan kepadatan tulang saling berkaitan.\n\n- Olahraga menahan beban membantu merangsang pembentukan tulang.\n- Kalsium berperan dalam pembentukan struktur tulang.\n- Vitamin D membantu penyerapan kalsium.\n- Protein mendukung pembentukan jaringan tubuh.\n\nKurangnya nutrisi dan aktivitas fisik dapat meningkatkan risiko tulang rapuh."],
+
+["Darah","Komponen Sel Darah",
+"Darah terdiri atas:\n\n1. Eritrosit: sel darah merah, mengandung hemoglobin untuk mengangkut oksigen.\n2. Leukosit: sel darah putih, berfungsi melawan infeksi.\n3. Trombosit: keping darah, membantu proses pembekuan darah.\n4. Plasma darah: cairan yang mengangkut nutrisi, hormon, protein, dan zat sisa."],
+
+["Darah","Peredaran Darah Kecil dan Besar",
+"Peredaran darah kecil:\nJantung (bilik kanan) → arteri pulmonalis → paru-paru → vena pulmonalis → serambi kiri.\n\nPeredaran darah besar:\nJantung (bilik kiri) → aorta → seluruh tubuh → vena kava → serambi kanan.\n\nPeredaran kecil bertujuan melakukan pertukaran gas di paru-paru, sedangkan peredaran besar mengedarkan darah ke seluruh tubuh."],
+
+["Darah","Golongan Darah ABO dan Rhesus",
+"Golongan darah ABO terdiri dari A, B, AB, dan O.\n\n- A memiliki antigen A.\n- B memiliki antigen B.\n- AB memiliki antigen A dan B.\n- O tidak memiliki antigen A maupun B.\n\nRhesus positif memiliki antigen D, sedangkan rhesus negatif tidak memilikinya.\n\nUntuk transfusi sel darah merah, kecocokan ABO dan Rh harus diperiksa. Pemeriksaan crossmatch juga diperlukan.\n\nO negatif dikenal sebagai donor sel darah merah universal dalam kondisi tertentu, sedangkan AB positif dapat menerima sel darah merah dari semua golongan ABO dan Rh."],
+
+["Darah","Mekanisme Pembekuan Darah",
+"Pembekuan darah berlangsung melalui beberapa tahap:\n\n1. Pembuluh darah mengalami kerusakan.\n2. Trombosit menempel dan berkumpul pada daerah luka.\n3. Faktor jaringan dan faktor koagulasi mengaktifkan rangkaian pembekuan.\n4. Faktor X aktif membantu mengubah protrombin menjadi trombin dengan bantuan kompleks protrombinase.\n5. Trombin mengubah fibrinogen menjadi fibrin.\n6. Benang fibrin membentuk jaring yang membantu menutup luka.\n\nKalsium dan vitamin K berperan dalam proses ini."],
+
+["Darah","Gangguan Sistem Sirkulasi",
+"Beberapa gangguan pada pembuluh darah:\n\n1. Aterosklerosis: penumpukan plak pada dinding arteri.\n2. Arteriosklerosis: pengerasan atau penebalan dinding arteri.\n3. Varises: pelebaran vena akibat gangguan katup vena.\n4. Hipertensi: tekanan darah tinggi.\n5. Aneurisma: pelebaran abnormal pada dinding pembuluh darah."],
+
+["Darah","Gangguan Pembuluh Darah",
+"Kelainan pembuluh darah dapat dikenali melalui pemeriksaan medis.\n\n- Aterosklerosis: plak menyebabkan penyempitan arteri.\n- Varises: vena melebar dan berkelok-kelok.\n- Trombosis: terbentuknya bekuan darah di dalam pembuluh.\n- Aneurisma: dinding pembuluh mengalami pelebaran abnormal.\n\nGangguan tersebut dapat menghambat aliran darah."],
+
+["Darah","Arteri, Vena, dan Kapiler",
+"ARTERI:\n- Membawa darah menjauhi jantung.\n- Dinding tebal dan elastis.\n- Tekanan darah tinggi.\n\nVENA:\n- Membawa darah menuju jantung.\n- Dinding lebih tipis.\n- Memiliki katup.\n\nKAPILER:\n- Pembuluh paling kecil.\n- Dinding sangat tipis, satu lapis sel.\n- Tempat pertukaran gas, nutrisi, dan zat sisa."],
+
+["Cerna","Organ Pencernaan dan Enzim",
+"Organ pencernaan dan enzimnya:\n\n1. Mulut: amilase/ptialin memecah pati.\n2. Lambung: pepsin memecah protein, lipase lambung mencerna sebagian lemak.\n3. Pankreas: amilase, lipase, tripsin, kimotripsin, dan enzim lainnya.\n4. Usus halus: maltase, sukrase, laktase, dan peptidase.\n\nHati menghasilkan empedu, bukan enzim. Empedu membantu emulsifikasi lemak."],
+
+["Cerna","Fungsi Zat Makanan Makro",
+"Zat makanan makro meliputi:\n\n1. Karbohidrat: sumber energi utama.\n2. Protein: membangun dan memperbaiki jaringan serta membentuk enzim.\n3. Lemak: cadangan energi, pelindung organ, dan membantu penyerapan vitamin A, D, E, K.\n\nKetiganya diperlukan untuk metabolisme tubuh."],
+
+["Cerna","Hasil Akhir Pencernaan",
+"Hasil akhir pencernaan kimiawi:\n\n1. Karbohidrat → monosakarida, terutama glukosa, fruktosa, dan galaktosa.\n2. Protein → asam amino.\n3. Lemak → asam lemak dan monogliserida, yang dapat dipecah lebih lanjut menjadi gliserol dan asam lemak.\n\nHasil pencernaan kemudian diserap oleh usus halus."],
+
+["Cerna","Empedu dan Getah Pankreas",
+"Empedu dihasilkan oleh hati dan disimpan dalam kantong empedu.\n\nFungsi empedu adalah mengemulsikan lemak menjadi butiran kecil agar lebih mudah dicerna lipase.\n\nGetah pankreas mengandung:\n- Amilase untuk karbohidrat.\n- Lipase untuk lemak.\n- Protease untuk protein.\n- Bikarbonat untuk menetralkan asam dari lambung.\n\nKeduanya membantu pencernaan di usus halus."],
+
+["Cerna","Gangguan Sistem Pencernaan",
+"Beberapa gangguan pencernaan:\n\n1. Gastritis: peradangan lapisan lambung.\n2. Diare: buang air besar cair dan lebih sering.\n3. Konstipasi: sulit buang air besar.\n4. GERD: naiknya isi lambung ke kerongkongan.\n5. Apendisitis: peradangan usus buntu.\n6. Ulkus peptikum: luka pada lapisan lambung atau duodenum.\n\nGejala dan lokasi nyeri membantu pemeriksaan, tetapi diagnosis tidak hanya berdasarkan gejala."],
+
+["Napas","Organ Pernapasan dan Fungsinya",
+"Urutan saluran pernapasan:\n\n1. Hidung: menyaring, menghangatkan, dan melembapkan udara.\n2. Faring: jalur udara menuju laring.\n3. Laring: tempat pita suara.\n4. Trakea: saluran udara dengan silia dan lendir.\n5. Bronkus: cabang trakea menuju paru-paru.\n6. Bronkiolus: cabang kecil bronkus.\n7. Alveolus: tempat pertukaran gas."],
+
+["Napas","Pertukaran Gas di Alveolus",
+"Pertukaran gas berlangsung secara difusi karena perbedaan tekanan parsial gas.\n\n- Oksigen berdifusi dari alveolus ke kapiler darah.\n- Oksigen kemudian diikat hemoglobin.\n- Karbon dioksida berdifusi dari darah ke alveolus.\n- Karbon dioksida dikeluarkan saat ekspirasi.\n\nDinding alveolus yang tipis dan permukaan yang luas membantu proses pertukaran gas."],
+
+["Napas","Otot Diafragma dan Antartulang Rusuk",
+"INSPIRASI:\n- Diafragma berkontraksi dan mendatar.\n- Otot antartulang rusuk luar berkontraksi.\n- Volume rongga dada meningkat.\n- Tekanan dalam paru-paru menurun.\n- Udara masuk.\n\nEKSPIRASI NORMAL:\n- Diafragma relaksasi dan melengkung.\n- Otot antartulang rusuk luar relaksasi.\n- Volume rongga dada menurun.\n- Tekanan paru-paru meningkat.\n- Udara keluar."],
+
+["Napas","Dampak Gas Karbon Monoksida",
+"Karbon monoksida (CO) merupakan gas beracun yang dapat berikatan dengan hemoglobin membentuk karboksihemoglobin.\n\nIkatan CO dengan hemoglobin jauh lebih kuat daripada oksigen.\n\nAkibatnya:\n- Kemampuan darah mengangkut oksigen berkurang.\n- Jaringan tubuh kekurangan oksigen.\n- Dapat menyebabkan pusing, lemas, gangguan kesadaran, hingga kondisi yang mengancam jiwa."],
+
+["Napas","Faktor Frekuensi Pernapasan",
+"Frekuensi pernapasan dipengaruhi oleh:\n\n1. Usia: anak-anak umumnya bernapas lebih cepat.\n2. Aktivitas fisik: aktivitas berat meningkatkan frekuensi.\n3. Suhu tubuh: demam dapat meningkatkan frekuensi.\n4. Emosi: rasa takut atau cemas dapat memengaruhi pernapasan.\n5. Kondisi kesehatan.\n6. Ketinggian tempat dan kadar oksigen.\n7. Kadar karbon dioksida dalam darah."],
+
+["Napas","Penyakit Sistem Pernapasan",
+"Beberapa penyakit pernapasan:\n\n1. Emfisema: kerusakan dinding alveolus sehingga luas permukaan pertukaran gas berkurang.\n2. Bronkitis: peradangan bronkus.\n3. Asma: penyempitan saluran napas akibat peradangan dan kontraksi otot bronkus.\n4. Pneumonia: infeksi yang menyebabkan alveolus meradang dan terisi cairan.\n5. Tuberkulosis: infeksi bakteri Mycobacterium tuberculosis yang umumnya menyerang paru-paru."],
+
+["Napas","Dampak Karbon Monoksida (CO)",
+"CO menghambat pengangkutan oksigen oleh hemoglobin.\n\nHemoglobin yang seharusnya mengikat oksigen justru berikatan dengan karbon monoksida.\n\nDampaknya adalah hipoksia, yaitu kondisi ketika jaringan tubuh kekurangan oksigen.\n\nPaparan CO merupakan keadaan darurat medis. Segera menjauh dari sumber paparan dan cari bantuan darurat."],
+
+["Darah","Mekanisme Peredaran Darah",
+"Peredaran darah manusia bersifat ganda.\n\nPeredaran kecil:\nBilik kanan → arteri pulmonalis → paru-paru → vena pulmonalis → serambi kiri.\n\nPeredaran besar:\nBilik kiri → aorta → jaringan tubuh → vena kava → serambi kanan.\n\nDisebut peredaran ganda karena darah melewati jantung dua kali dalam satu siklus lengkap."],
+
+["Cerna","Pencernaan Mekanis dan Kimiawi",
+"DI MULUT:\n- Mekanis: gigi mengunyah makanan dan lidah membantu mencampurnya.\n- Kimiawi: enzim amilase memecah pati.\n\nDI LAMBUNG:\n- Mekanis: otot lambung mengaduk makanan.\n- Kimiawi: pepsin memecah protein menjadi peptida. Asam lambung membantu mengaktifkan pepsin dan membunuh banyak mikroorganisme.\n\nKeduanya menghasilkan makanan yang lebih mudah diproses tubuh."],
+
+["Cerna","Penyebab dan Dampak Gangguan Pencernaan",
+"Gangguan pencernaan dapat disebabkan oleh:\n\n1. Infeksi bakteri, virus, atau parasit.\n2. Kurang serat dan air.\n3. Pola makan tidak teratur.\n4. Kebersihan makanan yang buruk.\n5. Gangguan produksi enzim.\n6. Peradangan atau kerusakan organ.\n\nDampaknya dapat berupa gangguan penyerapan nutrisi, dehidrasi, nyeri perut, dan gangguan metabolisme."],
+
+["Napas","Struktur Organ Pernapasan",
+"Struktur dan fungsi organ pernapasan:\n\n- Rongga hidung: menyaring udara dengan rambut hidung dan lendir.\n- Faring: menghubungkan rongga hidung dengan laring.\n- Laring: mengatur jalur udara dan menghasilkan suara.\n- Trakea: menyalurkan udara.\n- Bronkus: menyalurkan udara ke paru-paru.\n- Bronkiolus: mengatur distribusi udara.\n- Alveolus: tempat difusi oksigen dan karbon dioksida."],
+
+["Napas","Pernapasan Dada dan Perut",
+"PERNAPASAN DADA:\nInspirasi: otot antartulang rusuk luar berkontraksi, tulang rusuk terangkat, volume rongga dada meningkat.\nEkspirasi: otot relaksasi, tulang rusuk turun, volume rongga dada menurun.\n\nPERNAPASAN PERUT:\nInspirasi: diafragma berkontraksi dan mendatar, volume rongga dada meningkat.\nEkspirasi: diafragma relaksasi dan melengkung, volume rongga dada menurun.\n\nKedua mekanisme bekerja bersama dalam pernapasan normal."]
+];
+
+let currentFilter="Semua";
+
+function render() {
+ const grid=document.getElementById("materiGrid");
+ const search=document.getElementById("search").value.toLowerCase();
+
+ grid.innerHTML="";
+
+ data.forEach((item,i)=>{
+  if((currentFilter==="Semua" || item[0]===currentFilter) &&
+     (item[1].toLowerCase().includes(search) ||
+      item[2].toLowerCase().includes(search))) {
+
+   grid.innerHTML+=`
+   <div class="card">
+    <div class="number">MATERI ${String(i+1).padStart(2,"0")}</div>
+    <h3>${item[1]}</h3>
+    <p>${item[2].substring(0,95)}...</p>
+    <button onclick="openModal(${i})">Pelajari Materi →</button>
+   </div>`;
+  }
+ });
+}
+
+function filter(category,btn) {
+ currentFilter=category;
+ document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+ render();
+}
+
+function openModal(i) {
+ document.getElementById("modalTitle").innerText=data[i][1];
+ document.getElementById("modalText").innerText=data[i][2];
+ document.getElementById("modal").style.display="flex";
+}
+
+function closeModal() {
+ document.getElementById("modal").style.display="none";
+}
+
+document.getElementById("search").addEventListener("input",render);
+
+const questions=[
+{
+q:"Apa fungsi utama eritrosit?",
+a:["Melawan bakteri","Mengangkut oksigen","Membekukan darah","Menghasilkan hormon"],
+c:1
+},
+{
+q:"Sendi yang memungkinkan gerakan ke segala arah adalah...",
+a:["Engsel","Putar","Peluru","Geser"],
+c:2
+},
+{
+q:"Enzim yang berfungsi memecah protein di lambung adalah...",
+a:["Amilase","Pepsin","Lipase","Maltase"],
+c:1
+},
+{
+q:"Tempat terjadinya pertukaran gas pada paru-paru adalah...",
+a:["Trakea","Bronkus","Alveolus","Laring"],
+c:2
+},
+{
+q:"Gas CO berbahaya karena...",
+a:["Menghancurkan tulang","Mengikat hemoglobin","Menghasilkan oksigen","Meningkatkan antibodi"],
+c:1
+},
+{
+q:"Pembuluh darah yang membawa darah menuju jantung adalah...",
+a:["Arteri","Vena","Kapiler","Aorta"],
+c:1
+},
+{
+q:"Hasil akhir pencernaan protein adalah...",
+a:["Glukosa","Asam amino","Asam lemak","Gliserol"],
+c:1
+},
+{
+q:"Kelainan tulang belakang yang melengkung ke samping disebut...",
+a:["Lordosis","Kifosis","Skoliosis","Osteoporosis"],
+c:2
+},
+{
+q:"Komponen darah yang membantu pembekuan adalah...",
+a:["Eritrosit","Leukosit","Trombosit","Plasma"],
+c:2
+},
+{
+q:"Organ yang menghasilkan empedu adalah...",
+a:["Lambung","Hati","Pankreas","Usus besar"],
+c:1
+}
+];
+
+let qi=0;
+let answered=false;
+
+function showQuestion() {
+ answered=false;
+ let q=questions[qi];
+ document.getElementById("question").innerText=
+ (qi+1)+". "+q.q;
+
+ document.getElementById("result").innerText="";
+ document.getElementById("options").innerHTML="";
+
+ q.a.forEach((answer,i)=>{
+  let btn=document.createElement("button");
+  btn.innerText=String.fromCharCode(65+i)+". "+answer;
+  btn.onclick=()=>checkAnswer(i);
+  document.getElementById("options").appendChild(btn);
+ });
+}
+
+function checkAnswer(i) {
+ if(answered)return;
+ answered=true;
+
+ let correct=questions[qi].c;
+ document.getElementById("result").innerText=
+ i===correct
+ ? "Benar! Jawaban kamu tepat."
+ : "Belum tepat. Jawaban benar: "+questions[qi].a[correct];
+}
+
+function nextQuestion() {
+ qi=(qi+1)%questions.length;
+ showQuestion();
+}
+
+showQuestion();
+render();
+
+</script>
+</body>
+</html>
